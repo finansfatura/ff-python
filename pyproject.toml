@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "finansfatura"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python client for the Finansfatura e-invoice (e-Fatura / e-Arşiv) API"
 readme = "README.md"
 requires-python = ">=3.8"
