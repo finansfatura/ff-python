@@ -31,6 +31,22 @@ result = ff.issue_invoice(payload, idempotency_key="order-1042")
 print(result["invoice_id"], result["status"])   # -> ... QUEUED
 ```
 
+### Typed inputs (optional)
+
+Prefer autocomplete and early "missing field" errors over raw dicts? Pass
+`Party` / `Line` dataclasses instead — same result, no extra dependency:
+
+```python
+from finansfatura import Party, Line, build_earsiv_payload
+
+payload = build_earsiv_payload(
+    recipient=Party(vkn_tckn="11111111111", title="Ahmet Yılmaz", email="ahmet@example.com"),
+    lines=[Line(title="Kablosuz Kulaklık", qty=1, unit_price=100.0, vat_rate=0.20)],
+)
+```
+
+Dicts and dataclasses are interchangeable everywhere; use whichever you like.
+
 `build_earsiv_payload` computes totals from the lines (Decimal, no float drift)
 and applies the API's exact field casing for you: the outer layer is snake_case
 (`document_type`, `canonical`) but everything inside `canonical` is PascalCase

@@ -9,6 +9,7 @@ from .errors import (
     ProviderError,
     ScopeError,
 )
+from .models import Line, Party
 from .payload import build_earsiv_payload, build_efatura_payload, build_payload
 
 __version__ = "0.1.0"
@@ -16,6 +17,8 @@ __version__ = "0.1.0"
 __all__ = [
     "FinansfaturaClient",
     "DEFAULT_BASE_URL",
+    "Party",
+    "Line",
     "build_payload",
     "build_earsiv_payload",
     "build_efatura_payload",

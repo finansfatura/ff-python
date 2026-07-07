@@ -10,10 +10,17 @@ Totals are computed from the lines with :class:`~decimal.Decimal` to avoid float
 kuruş drift; ``LineTotal`` is the KDV-excl net used verbatim by the server.
 """
 
+from dataclasses import asdict, is_dataclass
 from decimal import Decimal
 
 
+def _d(x):
+    """Accept either a Party/Line dataclass or a plain dict."""
+    return asdict(x) if is_dataclass(x) else x
+
+
 def _party(p):
+    p = _d(p)
     return {
         "VKNorTCKN": p["vkn_tckn"],
         "Title": p.get("title", ""),
@@ -29,6 +36,7 @@ def _lines_and_totals(lines):
     subtotal = Decimal("0")
     vat_total = Decimal("0")
     for l in lines:
+        l = _d(l)
         qty = Decimal(str(l["qty"]))
         unit = Decimal(str(l["unit_price"]))
         rate = Decimal(str(l["vat_rate"]))  # 0.20 == %20

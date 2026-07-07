@@ -1,9 +1,20 @@
 import unittest
 
-from finansfatura import build_earsiv_payload, build_efatura_payload
+from finansfatura import Line, Party, build_earsiv_payload, build_efatura_payload
 
 
 class TestPayload(unittest.TestCase):
+    def test_dataclass_and_dict_inputs_are_equivalent(self):
+        via_dict = build_earsiv_payload(
+            recipient={"vkn_tckn": "11111111111", "title": "Ahmet"},
+            lines=[{"title": "A", "qty": 2, "unit_price": 100.0, "vat_rate": 0.20}],
+        )
+        via_model = build_earsiv_payload(
+            recipient=Party(vkn_tckn="11111111111", title="Ahmet"),
+            lines=[Line(title="A", qty=2, unit_price=100.0, vat_rate=0.20)],
+        )
+        assert via_dict == via_model
+
     def test_earsiv_casing_and_totals(self):
         p = build_earsiv_payload(
             recipient={"vkn_tckn": "11111111111", "title": "Ahmet"},
