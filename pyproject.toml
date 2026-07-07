@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "finansfatura"
+version = "0.1.0"
+description = "Python client for the Finansfatura e-invoice (e-Fatura / e-Arşiv) API"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Finansfatura" }]
+keywords = ["finansfatura", "efatura", "earsiv", "e-invoice", "gib", "invoicing"]
+dependencies = ["requests>=2.25"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Office/Business :: Financial",
+]
+
+[project.urls]
+Homepage = "https://github.com/finansfatura/ff-python"
+Issues = "https://github.com/finansfatura/ff-python/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/finansfatura"]
